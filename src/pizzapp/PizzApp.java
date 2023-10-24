@@ -5,24 +5,31 @@ import java.awt.event.WindowEvent;
 public class PizzApp extends javax.swing.JFrame {
 
     double meretSzorzo = 1;
+    int alapAr = -1;
+    int ananasz = 0;
+    int sajt = 0;
+    int hagyma = 0;
+    int extrak = ananasz+sajt+hagyma;
+    int db = 1;
+    double vegsoAr = alapAr * meretSzorzo * db + extrak;
     
     
     
     public PizzApp() {
         initComponents();
         
-        int alapAr2 = 1750;
+        alapAr = 1750;
         
         meretSzorzo = 1;
         
-        int db = 1;
+        db = 1;
         
-        int ananasz = 0;
-        int sajt = 0;
-        int hagyma = 0;
-        int extrak = ananasz+sajt+hagyma;
+        ananasz = 0;
+        sajt = 0;
+        hagyma = 0;
+        extrak = ananasz+sajt+hagyma;
         
-        double vegsoAr = alapAr2 * meretSzorzo * db + extrak;
+        vegsoAr = alapAr * meretSzorzo * db + extrak;
         vegsoAr *= db;
         lblAr.setText(vegsoAr + "");
     }
@@ -253,7 +260,7 @@ public class PizzApp extends javax.swing.JFrame {
     private void cmdValaszthatoPizzakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdValaszthatoPizzakActionPerformed
         int valasztottPizza = cmdValaszthatoPizzak.getSelectedIndex();
         
-        int alapAr = -1;
+        alapAr = -1;
         
         if (valasztottPizza == 0){
             alapAr = 1580;
@@ -269,12 +276,12 @@ public class PizzApp extends javax.swing.JFrame {
         
         int db = 1;
         
-        int ananasz = 0;
-        int sajt = 0;
-        int hagyma = 0;
-        int extrak = ananasz+sajt+hagyma;
+        ananasz = 0;
+        sajt = 0;
+        hagyma = 0;
+        extrak = ananasz+sajt+hagyma;
         
-        double vegsoAr = alapAr * meretSzorzo * db + extrak;
+        vegsoAr = alapAr * meretSzorzo * db + extrak;
         vegsoAr *= db;
         lblAr.setText(vegsoAr + "");
     }//GEN-LAST:event_cmdValaszthatoPizzakActionPerformed
@@ -282,10 +289,17 @@ public class PizzApp extends javax.swing.JFrame {
     private void rdbMeret25ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbMeret25ItemStateChanged
     meretSzorzo = .75;
     
+    vegsoAr = alapAr * meretSzorzo * db + extrak;
+    vegsoAr *= db;
+    lblAr.setText(vegsoAr + "");
     }//GEN-LAST:event_rdbMeret25ItemStateChanged
 
     private void rdbMeret32ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbMeret32ItemStateChanged
     meretSzorzo = 1;
+    
+    vegsoAr = alapAr * meretSzorzo * db + extrak;
+    vegsoAr *= db;
+    lblAr.setText(vegsoAr + "");
     }//GEN-LAST:event_rdbMeret32ItemStateChanged
 
     public static void main(String args[]) {
