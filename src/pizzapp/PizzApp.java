@@ -23,7 +23,7 @@ public class PizzApp extends javax.swing.JFrame {
         
         meretSzorzo = 1;
         
-        db = 1;
+        db =  (int) numDb.getValue();
         
         ananasz = 0;
         sajt = 0;
@@ -286,7 +286,7 @@ public class PizzApp extends javax.swing.JFrame {
         }
         
         
-        db = 1;
+        db = (int) numDb.getValue();
         
         ananasz = 0;
         sajt = 0;
@@ -311,34 +311,40 @@ public class PizzApp extends javax.swing.JFrame {
     }//GEN-LAST:event_rdbMeret32ItemStateChanged
 
     private void chbSajtItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chbSajtItemStateChanged
-    if (chbSajt.isSelected()){
-        sajt = 200;
-    } else{
-        sajt = 0;
-    }
+        extraFeltet();  
     extrak = ananasz+sajt+hagyma;
         szamolasEsKiiras();
     }//GEN-LAST:event_chbSajtItemStateChanged
 
     private void chbHagymaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chbHagymaItemStateChanged
-    if (chbHagyma.isSelected()){
-        hagyma = 200;
-    } else{
-        hagyma = 0;
-    }
+        extraFeltet();  
     extrak = ananasz+sajt+hagyma;
         szamolasEsKiiras();
     }//GEN-LAST:event_chbHagymaItemStateChanged
 
     private void chbAnanaszItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chbAnanaszItemStateChanged
-    if (chbAnanasz.isSelected()){
-        ananasz = 200;
-    } else{
-        ananasz = 0;
-    }
+        extraFeltet();  
     extrak = ananasz+sajt+hagyma;
         szamolasEsKiiras();
     }//GEN-LAST:event_chbAnanaszItemStateChanged
+
+    private void extraFeltet() {
+        if (chbAnanasz.isSelected()){
+            ananasz = 200;
+        } else{
+            ananasz = 0;
+        }
+        if (chbHagyma.isSelected()){
+            hagyma = 200;
+        } else{
+            hagyma = 0;
+        }
+        if (chbSajt.isSelected()){
+            sajt = 200;
+        } else{
+            sajt = 0;
+        }
+    }
 
     private void szamolasEsKiiras() {
         vegsoAr = alapAr * meretSzorzo * db + extrak;
