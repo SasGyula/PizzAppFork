@@ -58,6 +58,11 @@ public class PizzApp extends javax.swing.JFrame {
 
         cmdValaszthatoPizzak.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Margherita", "Hawaii", "Songoku", "Diavola" }));
         cmdValaszthatoPizzak.setSelectedIndex(2);
+        cmdValaszthatoPizzak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdValaszthatoPizzakActionPerformed(evt);
+            }
+        });
 
         pnlMeret.setBorder(javax.swing.BorderFactory.createTitledBorder("Méret"));
 
@@ -230,6 +235,35 @@ public class PizzApp extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmdValaszthatoPizzakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdValaszthatoPizzakActionPerformed
+        int valasztottPizza = cmdValaszthatoPizzak.getSelectedIndex();
+        
+        int alapAr = -1;
+        
+        if (valasztottPizza == 0){
+            alapAr = 1580;
+        }else if (valasztottPizza == 1) {
+            alapAr = 1680;
+        }else if (valasztottPizza == 2) {
+            alapAr = 1750;
+        }else if (valasztottPizza == 3 ) {
+            alapAr = 2100;
+        }
+        
+        double meretSzorzo = 1;
+        
+        int db = 1;
+        
+        int ananasz = 0;
+        int sajt = 0;
+        int hagyma = 0;
+        int extrak = ananasz+sajt+hagyma;
+        
+        double vegsoAr = alapAr * meretSzorzo * db + extrak;
+        vegsoAr *= db;
+        lblAr.setText(vegsoAr + "");
+    }//GEN-LAST:event_cmdValaszthatoPizzakActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
