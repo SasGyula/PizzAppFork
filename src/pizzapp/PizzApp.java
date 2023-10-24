@@ -1,5 +1,6 @@
 package pizzapp;
 
+import java.awt.event.ItemEvent;
 import java.awt.event.WindowEvent;
 
 public class PizzApp extends javax.swing.JFrame {
@@ -157,10 +158,25 @@ public class PizzApp extends javax.swing.JFrame {
         pnlExtrak.setBorder(javax.swing.BorderFactory.createTitledBorder("Extrák"));
 
         chbSajt.setText("sajt");
+        chbSajt.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                chbSajtItemStateChanged(evt);
+            }
+        });
 
         chbHagyma.setText("hagyma");
+        chbHagyma.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                chbHagymaItemStateChanged(evt);
+            }
+        });
 
         chbAnanasz.setText("ananász");
+        chbAnanasz.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                chbAnanaszItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlExtrakLayout = new javax.swing.GroupLayout(pnlExtrak);
         pnlExtrak.setLayout(pnlExtrakLayout);
@@ -257,7 +273,6 @@ public class PizzApp extends javax.swing.JFrame {
 
     private void cmdValaszthatoPizzakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdValaszthatoPizzakActionPerformed
         int valasztottPizza = cmdValaszthatoPizzak.getSelectedIndex();
-        
         alapAr = -1;
         
         if (valasztottPizza == 0){
@@ -271,8 +286,7 @@ public class PizzApp extends javax.swing.JFrame {
         }
         
         
-        
-        int db = 1;
+        db = 1;
         
         ananasz = 0;
         sajt = 0;
@@ -290,13 +304,41 @@ public class PizzApp extends javax.swing.JFrame {
         szamolasEsKiiras();
     }//GEN-LAST:event_rdbMeret25ItemStateChanged
 
-
-
     private void rdbMeret32ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbMeret32ItemStateChanged
     meretSzorzo = 1;
-    
+
         szamolasEsKiiras();
     }//GEN-LAST:event_rdbMeret32ItemStateChanged
+
+    private void chbSajtItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chbSajtItemStateChanged
+    if (chbSajt.isSelected()){
+        sajt = 200;
+    } else{
+        sajt = 0;
+    }
+    extrak = ananasz+sajt+hagyma;
+        szamolasEsKiiras();
+    }//GEN-LAST:event_chbSajtItemStateChanged
+
+    private void chbHagymaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chbHagymaItemStateChanged
+    if (chbHagyma.isSelected()){
+        hagyma = 200;
+    } else{
+        hagyma = 0;
+    }
+    extrak = ananasz+sajt+hagyma;
+        szamolasEsKiiras();
+    }//GEN-LAST:event_chbHagymaItemStateChanged
+
+    private void chbAnanaszItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chbAnanaszItemStateChanged
+    if (chbAnanasz.isSelected()){
+        ananasz = 200;
+    } else{
+        ananasz = 0;
+    }
+    extrak = ananasz+sajt+hagyma;
+        szamolasEsKiiras();
+    }//GEN-LAST:event_chbAnanaszItemStateChanged
 
     private void szamolasEsKiiras() {
         vegsoAr = alapAr * meretSzorzo * db + extrak;
