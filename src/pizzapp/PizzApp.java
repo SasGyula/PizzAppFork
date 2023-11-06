@@ -13,9 +13,11 @@ public class PizzApp extends javax.swing.JFrame {
     int extrak = ananasz+sajt+hagyma;
     int db = 1;
     double vegsoAr = alapAr * meretSzorzo * db + extrak;
-    
-    
-    
+    String pizzaFele = "";
+    String vanSajtValasztva = "";
+    String vanAnanaszValasztva = "";
+    String vanHagymaValasztva = "";
+    String pizzaMeret = "";
     public PizzApp() {
         initComponents();
         
@@ -29,8 +31,10 @@ public class PizzApp extends javax.swing.JFrame {
         sajt = 0;
         hagyma = 0;
         extrak = ananasz+sajt+hagyma;
-        
+
         szamolasEsKiiras();
+        osszesito();
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -124,6 +128,11 @@ public class PizzApp extends javax.swing.JFrame {
         lblAr.setText("0");
 
         numDb.setModel(new javax.swing.SpinnerNumberModel(1, 1, 5, 1));
+        numDb.addVetoableChangeListener(new java.beans.VetoableChangeListener() {
+            public void vetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {
+                numDbVetoableChange(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlFizetendoLayout = new javax.swing.GroupLayout(pnlFizetendo);
         pnlFizetendo.setLayout(pnlFizetendoLayout);
@@ -201,6 +210,7 @@ public class PizzApp extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        txaOsszesito.setEditable(false);
         txaOsszesito.setColumns(20);
         txaOsszesito.setRows(5);
         jScrollPane1.setViewportView(txaOsszesito);
@@ -285,8 +295,9 @@ public class PizzApp extends javax.swing.JFrame {
             alapAr = 2100;
         }
         
+
         
-        db = (int) numDb.getValue();
+        db =  (int) numDb.getValue();
         
         ananasz = 0;
         sajt = 0;
@@ -294,39 +305,100 @@ public class PizzApp extends javax.swing.JFrame {
         extrak = ananasz+sajt+hagyma;
         
         vegsoAr = alapAr * meretSzorzo * db + extrak;
-        vegsoAr *= db;
+
         lblAr.setText(vegsoAr + "");
+        
+        osszesito();
     }//GEN-LAST:event_cmdValaszthatoPizzakActionPerformed
+
+   
 
     private void rdbMeret25ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbMeret25ItemStateChanged
     meretSzorzo = .75;
+
     
         szamolasEsKiiras();
+        osszesito();
     }//GEN-LAST:event_rdbMeret25ItemStateChanged
 
     private void rdbMeret32ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbMeret32ItemStateChanged
     meretSzorzo = 1;
 
         szamolasEsKiiras();
+        osszesito();
     }//GEN-LAST:event_rdbMeret32ItemStateChanged
 
     private void chbSajtItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chbSajtItemStateChanged
         extraFeltet();  
     extrak = ananasz+sajt+hagyma;
         szamolasEsKiiras();
+        osszesito();
     }//GEN-LAST:event_chbSajtItemStateChanged
 
     private void chbHagymaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chbHagymaItemStateChanged
         extraFeltet();  
     extrak = ananasz+sajt+hagyma;
         szamolasEsKiiras();
+        osszesito();
     }//GEN-LAST:event_chbHagymaItemStateChanged
 
     private void chbAnanaszItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chbAnanaszItemStateChanged
         extraFeltet();  
     extrak = ananasz+sajt+hagyma;
         szamolasEsKiiras();
+        osszesito();
     }//GEN-LAST:event_chbAnanaszItemStateChanged
+
+    private void numDbVetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_numDbVetoableChange
+        szamolasEsKiiras();
+        osszesito();
+    }//GEN-LAST:event_numDbVetoableChange
+
+    private void osszesito() {
+        String pizzaFele = "";
+        int valasztottPizzaNev = cmdValaszthatoPizzak.getSelectedIndex();
+        if (valasztottPizzaNev == 0){
+            pizzaFele = "Margherita";
+        }else if (valasztottPizzaNev == 1) {
+            pizzaFele = "Hawaii";
+        }else if (valasztottPizzaNev == 2) {
+            pizzaFele = "Songoku";
+        }else if (valasztottPizzaNev == 3 ) {
+            pizzaFele = "Diavola";
+        }
+        String vanSajtValasztva = "";
+        String vanAnanaszValasztva = "";
+        String vanHagymaValasztva = "";
+        String pizzaMeret = "";
+        
+        if (rdbMeret32.isSelected()){
+            pizzaMeret = "32 cm";
+        }else{
+            pizzaMeret = "25 cm";
+        }
+        
+        if(chbSajt.isSelected()){
+            vanSajtValasztva = "-sajt";
+        }else{
+            vanSajtValasztva = "";
+        }
+        
+        if(chbAnanasz.isSelected()){
+            vanAnanaszValasztva= "-ananász";
+        }else{
+            vanAnanaszValasztva = "";
+        }
+        
+        if(chbHagyma.isSelected()){
+            vanHagymaValasztva= "-hagyma";
+        }else{
+            vanHagymaValasztva= "";
+        }
+
+        
+        txaOsszesito.setText("Pizza:"+pizzaFele + " "+ pizzaMeret + " " + numDb.getValue()+"db"+"\n"+vanSajtValasztva+"\n"+vanAnanaszValasztva+"\n"+vanHagymaValasztva); 
+    }
+
 
     private void extraFeltet() {
         if (chbAnanasz.isSelected()){
@@ -348,7 +420,6 @@ public class PizzApp extends javax.swing.JFrame {
 
     private void szamolasEsKiiras() {
         vegsoAr = alapAr * meretSzorzo * db + extrak;
-        vegsoAr *= db;
         lblAr.setText(vegsoAr + "");
     }
     public static void main(String args[]) {
