@@ -128,9 +128,9 @@ public class PizzApp extends javax.swing.JFrame {
         lblAr.setText("0");
 
         numDb.setModel(new javax.swing.SpinnerNumberModel(1, 1, 5, 1));
-        numDb.addVetoableChangeListener(new java.beans.VetoableChangeListener() {
-            public void vetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {
-                numDbVetoableChange(evt);
+        numDb.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                numDbStateChanged(evt);
             }
         });
 
@@ -349,10 +349,11 @@ public class PizzApp extends javax.swing.JFrame {
         osszesito();
     }//GEN-LAST:event_chbAnanaszItemStateChanged
 
-    private void numDbVetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_numDbVetoableChange
+    private void numDbStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_numDbStateChanged
+        db =  (int) numDb.getValue();
         szamolasEsKiiras();
         osszesito();
-    }//GEN-LAST:event_numDbVetoableChange
+    }//GEN-LAST:event_numDbStateChanged
 
     private void osszesito() {
         String pizzaFele = "";
